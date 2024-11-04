@@ -1,0 +1,269 @@
+1. Get Category Name by jQuery
+
+var categoryName = jQuery(".base").text();
+var simpleMsg = "<span>This is </span>";
+jQuery(".column.main").prepend("<div style='margin-bottom: 20px;font-size:20px;'>" + simpleMsg + categoryName + "</div>");
+
+
+2. Remove size section from product list section by jQuery
+
+jQuery(".swatch-attribute.size").remove();
+
+3. if second product from list is above 50 it shows above 50 to first product and if it is below 50 it shows that 
+to first product. This is done by jQuery
+
+<script>
+jQuery(document).ready(function() {
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+        console.log("Current LI HTML:", $currentLi.html()); // Log the current <li> HTML
+
+        var $nextLi = $currentLi.next("li.item.product.product-item"); // Ensure you target the correct next product
+        console.log("Next LI HTML:", $nextLi.html()); // Log the next <li> HTML
+
+        // Check if the next sibling exists
+        if ($nextLi.length) {
+            // Get the price from the next product
+            var priceText = $nextLi.find(".normal-price .price").text();
+            console.log("Price Text:", priceText); // Log the price text retrieved
+
+            // Clean the price text
+            var pvalue = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+            console.log("Parsed Price Value:", pvalue); // Log the parsed price value
+
+            // Clear any previous messages            
+
+            // Append the message based on the price of the next product
+            if (pvalue > 50) {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Next product price is greater than $50.00</div>");
+                console.log("Message: Next product price is greater than $50.00"); // Log the message
+            } else {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Next product price is less than $50.00</div>");
+                console.log("Message: Next product price is less than $50.00"); // Log the message
+            }
+        } else {
+            console.log("No next LI found."); // Log if no next <li> exists
+        }
+    });
+});
+</script>
+
+
+<script>
+// combine jquery 1 - 3
+
+jQuery(document).ready(function() {
+    var categoryName = jQuery(".base").text();
+    var simpleMsg = "<span>This is </span>";
+    jQuery(".column.main").prepend("<div style='margin-bottom: 20px;font-size:40px;'>" + simpleMsg + categoryName + "</div>");
+    jQuery(".swatch-attribute.size").remove();  
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+        var $nextLi = $currentLi.next("li.item.product.product-item"); // Ensure you target the correct next product
+        // Check if the next sibling exists
+        if ($nextLi.length) {
+            // Get the price from the next product
+            var priceText = $nextLi.find(".normal-price .price").text();
+            // Clean the price text
+            var pvalue = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+            // Clear any previous messages            
+            // Append the message based on the price of the next product
+            if (pvalue > 50) {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Next product price is greater than $50.00</div>");
+            } else {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Next product price is less than $50.00</div>");
+            }
+        } else {
+            console.log("No next LI found."); // Log if no next <li> exists
+        }
+    });
+});
+
+</script>
+
+
+4. if first product from list is above 50 it shows above 50 to second product and if it is below 50 it shows that 
+to second product. This is done by jQuery
+
+<script>
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+        var $prevLi = $currentLi.prev("li.item.product.product-item"); // Target the previous product item
+        // Check if the previous sibling exists
+        if ($prevLi.length) {
+            // Get the price from the previous product
+            var priceText = $prevLi.find(".normal-price .price").text();
+            // Clean the price text
+            var pvalue = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+            // Append the message based on the price of the previous product
+            if (pvalue > 50) {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Previous product price is greater than $50.00</div>");
+            } else {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Previous product price is less than $50.00</div>");
+            }
+        } else {
+            console.log("No previous LI found."); // Log if no previous <li> exists
+        }
+    });
+</script>
+
+5. Remove hover effect on product list section  
+
+<script>
+    jQuery(".products-grid .product-item-info").addClass("active");
+    jQuery(".page-products .products-grid .product-item").css("margin-bottom", "70px");
+</script>
+
+6. Product price is incerease 10 in every product and show it
+<script>
+jQuery("li.item.product.product-item").each(function() {
+    var $currentLi = jQuery(this);
+    console.log("Current LI HTML:", $currentLi.html()); // Log the current <li> HTML
+
+    // Get the current product's price
+    var currentPriceText = $currentLi.find(".normal-price .price").text();
+    console.log("Current Price Text:", currentPriceText); // Log the current price text
+
+    // Clean the price text and parse it
+    var currentPrice = parseFloat(currentPriceText.replace(/[^0-9.-]+/g, ""));
+    console.log("Parsed Current Price Value:", currentPrice); // Log the parsed current price
+
+    // Add 10 to the current price
+    var newPrice = currentPrice + 10;
+    console.log("New Price Value:", newPrice); // Log the new price
+
+    // Replace the current price with the new value
+    $currentLi.find(".normal-price .price").text("$" + newPrice.toFixed(2));
+
+    // Optional: Append a message showing the new price
+    $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Updated price is $" + newPrice.toFixed(2) + "</div>");
+    console.log("Message: Updated price is $" + newPrice.toFixed(2)); // Log the message
+});
+</script>
+
+
+<script>
+jQuery(document).ready(function() { 
+    jQuery(".products-grid .product-item-info").addClass("active");
+    jQuery(".page-products .products-grid .product-item").css("margin-bottom", "70px");
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+        console.log("Current LI HTML:", $currentLi.html()); // Log the current <li> HTML
+    
+        // Get the current product's price
+        var currentPriceText = $currentLi.find(".normal-price .price").text();
+        console.log("Current Price Text:", currentPriceText); // Log the current price text
+    
+        // Clean the price text and parse it
+        var currentPrice = parseFloat(currentPriceText.replace(/[^0-9.-]+/g, ""));
+        console.log("Parsed Current Price Value:", currentPrice); // Log the parsed current price
+    
+        // Add 10 to the current price
+        var newPrice = currentPrice + 10;
+        console.log("New Price Value:", newPrice); // Log the new price
+    
+        // Replace the current price with the new value
+        $currentLi.find(".normal-price .price").text("$" + newPrice.toFixed(2));
+    
+        // Optional: Append a message showing the new price
+        $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Updated price is $" + newPrice.toFixed(2) + "</div>");
+        console.log("Message: Updated price is $" + newPrice.toFixed(2)); // Log the message
+    });
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+        var $prevLi = $currentLi.prev("li.item.product.product-item"); // Target the previous product item
+        // Check if the previous sibling exists
+        if ($prevLi.length) {
+            // Get the price from the previous product
+            var priceText = $prevLi.find(".normal-price .price").text();
+            // Clean the price text
+            var pvalue = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+            // Append the message based on the price of the previous product
+            if (pvalue > 50) {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Previous product price is greater than $50.00</div>");
+            } else {
+                $currentLi.find(".product-item-info").after("<div style='margin-bottom: 20px;font-size:18px;'>Previous product price is less than $50.00</div>");
+            }
+        } else {
+            console.log("No previous LI found."); // Log if no previous <li> exists
+        }
+    });
+});
+</script>
+
+<script>
+    // common for 4- 6 task
+    jQuery(document).ready(function() {
+    jQuery(".products-grid .product-item-info").addClass("active");
+    jQuery(".page-products .products-grid .product-item").css("margin-bottom", "180px");
+
+    jQuery("li.item.product.product-item").each(function() {
+        var $currentLi = jQuery(this);
+
+        // Update current price
+        var currentPrice = parseFloat($currentLi.find(".normal-price .price").text().replace(/[^0-9.-]+/g, "")) + 10;
+        $currentLi.find(".normal-price .price").text("$" + currentPrice.toFixed(2));
+        $currentLi.find(".product-item-name").after("<div style='margin-bottom: 20px;font-size:18px;'>Updated price is $" + currentPrice.toFixed(2) + "</div>");
+
+        // Check and compare with previous item price
+        var $prevLi = $currentLi.prev("li.item.product.product-item");
+        if ($prevLi.length) {
+            var prevPrice = parseFloat($prevLi.find(".normal-price .price").text().replace(/[^0-9.-]+/g, ""));
+            var message = prevPrice > 50 ? "Previous product price is greater than $50.00" : "Previous product price is less than $50.00";
+            $currentLi.find(".product-item-inner .product-item-actions").after("<div style='margin-bottom: 20px;font-size:18px;'>" + message + "</div>");
+        } else {
+            console.log("No previous LI found.");
+        }
+    });
+});
+</script>    
+
+
+7. On hover shows default image and by default shows hover image (Reverse the actual images)
+
+Ref. site (https://virblatt.de/collections/empfehlungen-alternative-kleidung-herren)
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.spc__main-img').css('opacity', '0'); // Hide main image initially
+        jQuery('.spc__hover-img').css('opacity', '1'); // Show hover image initially
+        
+        jQuery('.sf__pcard-image').hover(
+            function() {
+            // On hover, make the main image visible and hide the hover image
+            jQuery(this).find('.spc__main-img').css('opacity', '1');
+            jQuery(this).find('.spc__hover-img').css('opacity', '0');
+            },
+            function() {
+            // On mouse leave, revert to default state
+            jQuery(this).find('.spc__main-img').css('opacity', '0');
+            jQuery(this).find('.spc__hover-img').css('opacity', '1');
+            }
+        );
+    });
+</script>    
+
+
+8. Show message for even products and odd products with jQuery in category listing section
+
+Ref. site (https://virblatt.de/collections/empfehlungen-alternative-kleidung-herren)
+
+jQuery(document).ready(function() {
+    jQuery('.sf__pcard').each(function(index) {
+        if (index % 2 === 0) {            
+            jQuery(this).append('<div class="product-note">this is odd product</div>');
+        } else {            
+            jQuery(this).append('<div class="product-note">this is even product</div>');
+        }
+    });
+});
+
+jQuery(document).ready(function() {
+    jQuery('.product-item-info').each(function(index) {
+        if (index % 2 === 0) {            
+            jQuery(this).append('<div class="product-note">this is odd product</div>');
+        } else {            
+            jQuery(this).append('<div class="product-note">this is even product</div>');
+        }
+    });
+});
