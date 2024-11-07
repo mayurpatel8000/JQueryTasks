@@ -267,3 +267,230 @@ jQuery(document).ready(function() {
         }
     });
 });
+
+
+9. How to use js files in magento 2 
+
+https://developer.adobe.com/commerce/frontend-core/javascript/
+
+10. How to create age varification popup in magento 2 also close browser tab on click of button 
+
+<style>
+    #modal-promo {display: none}
+    .secondary {
+        background: #ccc;
+        border: 1px solid #ccc;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        padding: 7px 15px;
+        font-size: 1.4rem;
+        box-sizing: border-box;
+        vertical-align: middle;
+        border-radius: 3px;
+    }
+    a:active,.alink:active,a:hover,.alink:hover,a:visited, .alink:visited {
+        color: #fff;
+    }
+    #modal-promo-redirect {
+        text-decoration: none;
+        border-radius: 3px;
+    }
+    .modal-wrapper:has( #modal-promo-redirect) {
+        text-align: center;
+    }
+    .modal-popup:has( #modal-promo) .action-close {
+        display: none;
+    }
+    </style>
+    
+    <div id="modal-promo">
+        <div class="modal-wrapper">
+            <div>
+                <h2>Age Verification</h2>
+                <p>Please confirm your age:</p>
+                <div class="actions">
+                    <a href="javascript:void(0);" id="modal-promo-opener" class="action primary">
+                        <span>18+</span>
+                    </a>
+                    <a href="javascript:void(0);" id="modal-promo-redirect" class="secondary">
+                        <span>Below 18</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        require([
+            "jquery",
+            "Magento_Ui/js/modal/modal"
+        ], function(jQuery, modal) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                buttons: []
+            };
+            var $modal = jQuery('#modal-promo');
+            var $opener = jQuery('#modal-promo-opener');
+            var $cls = jQuery('#modal-promo-redirect');
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+            if (!getCookie("ageConfirmed")) {           
+                var popup = modal(options, $modal);
+                $modal.modal('openModal');
+            }
+            $opener.click(function() {
+                $modal.modal('closeModal');
+                setCookie("ageConfirmed", "true", 1);
+            });    
+            $cls.click(function() {                
+                document.body.innerHTML = '<h2>Access Restricted</h2><p>Sorry, this content is not accessible for users under 18.</p>';
+            });
+        });
+    </script>
+    
+    
+
+    11. How to create age varification popup in magento 2 for below 18 years shows cms page and set coockies for 18+ years  
+
+    <style>
+    .cms-age-restriction aside.modal-popup,
+    .cms-age-restriction .modals-overlay {
+        display: none;
+    }
+    .modal-inner-wrap:has( #modal-promo) {
+        top:40%;
+    }
+    #modal-promo {display: none}
+    .secondary {
+        background: #ccc;
+        border: 1px solid #ccc;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 600;
+        padding: 7px 15px;
+        font-size: 1.4rem;
+        box-sizing: border-box;
+        vertical-align: middle;
+        border-radius: 3px;
+    }
+    a:active,.alink:active,a:hover,.alink:hover,a:visited, .alink:visited {
+        color: #fff;
+    }
+    #modal-promo-redirect {
+        text-decoration: none;
+        border-radius: 3px;
+    }
+    .modal-wrapper:has( #modal-promo-redirect) {
+        text-align: center;
+    }
+    .modal-popup:has( #modal-promo) .action-close {
+        display: none;
+    }
+    </style>
+    <div id="modal-promo">
+    <div class="modal-wrapper">
+        <div>
+            <h2>Age Verification</h2>
+            <p>Please confirm your age:</p>
+            <div class="actions">
+                <a href="javascript:void(0);" id="modal-promo-opener" class="action primary">
+                    <span>18+</span>
+                </a>
+                <a href="javascript:void(0);" id="modal-promo-redirect" class="secondary">
+                    <span>Below 18</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+    function closeAndReopenTab() { 
+        const currentUrl = window.location.href;   
+        var opennew = window.open("http://magento247p3.com/women.html", "_self", "width=200,height=100");   
+        window.close();
+    }
+    function close_window() {
+      if (confirm("Close Window?")) {
+        close();
+      }
+    }
+            let myGeeksforGeeksWindow;
+            function openWin() {
+                const currentUrl = window.location.href;   
+                var opennew = window.open("http://magento247p3.com/agerestriction.html", "_self", "width=200,height=100");   
+                $('.cms-age-restriction aside.modal-popup,.cms-age-restriction .modals-overlay').css({
+                    'display' : 'none'
+                });
+            }
+            function closeWin() {
+                myGeeksforGeeksWindow.close();
+            }
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function(jQuery, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            clickableOverlay: false,
+            buttons: []
+        };
+        var $modal = jQuery('#modal-promo');
+        var $opener = jQuery('#modal-promo-opener');
+        var $cls = jQuery('#modal-promo-redirect');
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+        if (!getCookie("ageConfirmed")) {
+            var popup = modal(options, $modal);
+            $modal.modal('openModal');
+        }
+        $opener.click(function() {
+            $modal.modal('closeModal');
+            setCookie("ageConfirmed", "true", 1); 
+        });
+        $cls.click(function() {  
+        const currentUrl = window.location.href;   
+        var opennew = window.open("http://magento247p3.com/age-restriction", "_self", "width=200,height=100");       
+        });
+    });
+    </script>
